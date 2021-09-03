@@ -2,57 +2,50 @@
 
 public class Task {
 
-    /** Task 1
-     * create a request to https://httpstat.us/203
-     * expect status 203
-     * expect content type TEXT
-     */
+    /*
+    tek bir değişken almak için
+    path veya jsonPath kullanılabilir
 
-    /** Task 2
-     * create a request to https://httpstat.us/203
-     * expect status 203
-     * expect content type TEXT
-     * expect BODY to be equal to "203 Non-Authoritative Information"
-     */
+    tüm veriye ihtiyacın varsa .as(Genel.class)
+    kullanılacak
 
-    /** Task 3
-     *  create a request to https://jsonplaceholder.typicode.com/todos/2
-     *  expect status 200
-     *  expect content type JSON
-     *  expect title in response body to be "quis ut nam facilis et officia qui"
-     */
+    verinin içinden bir bölümü bir clasa atmak
+    istersen jsonPath kullanılacak
+    */
+/*
+    https://www.google.com/search?  -> olan şey ne ?  google ın search metodu çalışıyor
+    parametreleri ise aşağıdaki gibi
+    q=java
+&sxsrf=AOaemvJDGBbXxUwEtoeBJL_dge5ay3kyqQ%3A1630517150695
+&source=hp
+&ei=nrcvYdS3J_aTjLsPgoKOCA
+&iflsig=ALs-wAMAAAAAYS_FrmGn9WQCUKiCxsHtOzCS0he2-6fP&oq=
+            &gs_lcp=Cgdnd3Mtd2l6EAMyBAgjECcyBA
 
-    /** Task 4
-     * create a request to https://jsonplaceholder.typicode.com/todos/2
-     *  expect status 200
-     *  expect content type JSON
-     *  expect response completed status to be false
-     */
 
-    /** Task 5
-     * create a request to https://jsonplaceholder.typicode.com/todos
-     * expect status 200
-     * expect content type JSON
-     * expect third item have:
-     *      title = "fugiat veniam minus"
-     *      userId = 1
-     */
+    public list<WebSayfa> search(String q, String sxsrf, String source)
+    {
 
-    /** Task 6
-     * create a request to https://jsonplaceholder.typicode.com/todos/2
-     * expect status 200
-     * Converting Into POJO
-     */
+    }
 
-    /** Task 7
-     * create a request to https://jsonplaceholder.typicode.com/todos
-     * expect status 200
-     * Converting Array Into Array of POJOs
-     */
 
-    /** Task 8
-     * create a request to https://jsonplaceholder.typicode.com/todos
-     * expect status 200
-     * Converting Array Into List of POJOs
-     */
+    main()
+    {
+        search("java","ssdsdsdsd","sdsdsdsds");
+    }
+
+    bu metodu webden naıl çağırırım 1.yöntem
+    search?q=java&sxsrf=wwewewe&source=dfdfdfd
+
+2.yöntem
+    search/java/wwewewe/dfdfdfd
+
+    RestAssured diyor ki
+    API kullancağın zaman parametreleri metoda gönderirken
+1.Metod için  param ifadesini kullan
+2.Metod için pathParam ı kullan
+
+    ben de linki ona göre düzenliyip öyle çağırayım
+*/
+
 }
