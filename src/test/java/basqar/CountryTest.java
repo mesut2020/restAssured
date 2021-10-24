@@ -3,11 +3,15 @@ package basqar;
 import basqar.model.Country;
 import io.restassured.http.ContentType;
 import io.restassured.http.Cookies;
+import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hamcrest.Matchers;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -23,16 +27,16 @@ public class CountryTest {
     @BeforeClass
     public void login()
     {
-        baseURI ="https://test.basqar.techno.study";
+        baseURI ="https://demo.mersys.io";
 
         randomGenName = RandomStringUtils.randomAlphabetic(8);
         randomGenCode = RandomStringUtils.randomAlphabetic(4);
 
-        // {"username": "daulet2030@gmail.com", "password": "TechnoStudy123@", "rememberMe": true}
+        // {"username": "richfield.edu", "password": "Richfield2020!", "rememberMe": true}
 
         Map<String, String> credentials= new HashMap<>();
-        credentials.put("username", "daulet2030@gmail.com");
-        credentials.put("password", "TechnoStudy123@");
+        credentials.put("username", "richfield.edu");
+        credentials.put("password", "Richfield2020!");
         credentials.put("rememberMe", "true");
 
         cookies= given()
@@ -43,7 +47,6 @@ public class CountryTest {
                 .then()
                 .statusCode(200)
                 .extract().response().getDetailedCookies();
-                ;
 
         System.out.println(cookies);
     }
@@ -63,14 +66,26 @@ public class CountryTest {
                   .when()
                   .post("/school-service/api/countries")
                   .then()
-                  .log().body()
+                  .log().body()           // olusturulan country bilgisini konsola yazar
                   .statusCode(201)
                   .body("name", equalTo(randomGenName))
                   .extract().jsonPath().getString("id")
                   //.extract().path("id"); // 2.yöntem
           ;
-
         System.out.println(id);
+
+        Response response = given().cookies(cookies)
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/school-service/api/countries")
+                .then()
+                .statusCode(200)
+                .body("name", Matchers.hasItem(randomGenName))
+                .extract().response();
+        response.prettyPrint();
+        List<String> countryNames = response.jsonPath().getList("name");
+        Assert.assertTrue(countryNames.contains(randomGenName),"No Record");
+
     }
 
     @Test(dependsOnMethods = "createCountry")
